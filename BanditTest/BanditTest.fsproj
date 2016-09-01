@@ -1,0 +1,90 @@
+﻿<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{7C3844EF-B54B-477A-9FF5-0944D2810569}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>BanditTest</RootNamespace>
+    <AssemblyName>BanditTest</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <ConsolePause>false</ConsolePause>
+    <PlatformTarget></PlatformTarget>
+    <GenerateTailCalls>true</GenerateTailCalls>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <DefineConstants></DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <ConsolePause>false</ConsolePause>
+    <GenerateTailCalls>true</GenerateTailCalls>
+    <PlatformTarget></PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup>
+    <FSharpTargetsPath>$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\FSharp\Microsoft.FSharp.Targets</FSharpTargetsPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(VisualStudioVersion)' == '10.0' OR '$(VisualStudioVersion)' == '11.0'">
+    <FSharpTargetsPath>$(MSBuildExtensionsPath32)\..\Microsoft SDKs\F#\3.0\Framework\v4.0\Microsoft.FSharp.Targets</FSharpTargetsPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="mscorlib" />
+    <Reference Include="FSharp.Core" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="nunit.framework">
+      <HintPath>..\packages\NUnit.3.4.1\lib\net45\nunit.framework.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="TestHelper.fs" />
+    <Compile Include="BanditTest.fs" />
+    <Compile Include="BanditModuleTest.fs" />
+    <Compile Include="GreedyTest.fs" />
+    <Compile Include="Math_Statistical_OnFlowComputeTest.fs" />
+    <Compile Include="GreedyStrategyTest.fs" />
+    <Compile Include="UCBTest.fs" />
+    <Compile Include="Math_Statistical_RandomGeneratorTest.fs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Bandit\Bandit.fsproj">
+      <Project>{A14182C3-F363-4E3E-92B4-0C905180F066}</Project>
+      <Name>Bandit</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BanditContract\BanditContract.fsproj">
+      <Project>{A74E6ECE-A1F9-4744-AF11-73F392174A1B}</Project>
+      <Name>BanditContract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NBanditAutoPlayerStrategy\NBanditAutoPlayerStrategy.fsproj">
+      <Project>{1489357A-E2CE-4DD2-8B8F-658D8951BA11}</Project>
+      <Name>NBanditAutoPlayerStrategy</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Math.Statistical\Math.Statistical.fsproj">
+      <Project>{27F06E68-2F44-4E5B-9247-2576A2F43C72}</Project>
+      <Name>Math.Statistical</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AutoPlayerStrategyContract\AutoPlayerStrategyContract.fsproj">
+      <Project>{0EF06E48-B567-4E5C-B5A5-C689AB761E47}</Project>
+      <Name>AutoPlayerStrategyContract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WorkFlow\WorkFlow.fsproj">
+      <Project>{4BD35C47-0FD1-42C7-8DBE-1CBFA8241CCC}</Project>
+      <Name>WorkFlow</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Utils\Utils.fsproj">
+      <Project>{2B2D59FA-FAC5-4B7C-8DA5-80E686F6BDD7}</Project>
+      <Name>Utils</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(FSharpTargetsPath)" />
+</Project>

@@ -1,0 +1,17 @@
+/Users/gaeldupire/Projects/NBanditArmed/AutoPlayNBanditArmed/obj/x86/Debug/.NETFramework,Version=v4.5.AssemblyAttribute.fs
+/Users/gaeldupire/Projects/NBanditArmed/AutoPlayNBanditArmed/bin/Debug/AutoPlayNBanditArmed.exe.mdb
+/Users/gaeldupire/Projects/NBanditArmed/AutoPlayNBanditArmed/bin/Debug/AutoPlayNBanditArmed.exe
+/Users/gaeldupire/Projects/NBanditArmed/AutoPlayNBanditArmed/obj/x86/Debug/AutoPlayNBanditArmed.exe
+/Users/gaeldupire/Projects/NBanditArmed/AutoPlayNBanditArmed/obj/x86/Debug/AutoPlayNBanditArmed.exe.mdb
+/Users/gaeldupire/Projects/NBanditArmed/AutoPlayNBanditArmed/bin/Debug/AutoPlayerStrategyContract.dll
+/Users/gaeldupire/Projects/NBanditArmed/AutoPlayNBanditArmed/bin/Debug/AutoPlayerStrategyContract.dll.mdb
+/Users/gaeldupire/Projects/NBanditArmed/AutoPlayNBanditArmed/bin/Debug/Bandit.dll
+/Users/gaeldupire/Projects/NBanditArmed/AutoPlayNBanditArmed/bin/Debug/Bandit.dll.mdb
+/Users/gaeldupire/Projects/NBanditArmed/AutoPlayNBanditArmed/bin/Debug/BanditContract.dll
+/Users/gaeldupire/Projects/NBanditArmed/AutoPlayNBanditArmed/bin/Debug/BanditContract.dll.mdb
+/Users/gaeldupire/Projects/NBanditArmed/AutoPlayNBanditArmed/bin/Debug/Math.Statistical.dll
+/Users/gaeldupire/Projects/NBanditArmed/AutoPlayNBanditArmed/bin/Debug/Math.Statistical.dll.mdb
+/Users/gaeldupire/Projects/NBanditArmed/AutoPlayNBanditArmed/bin/Debug/NBanditAutoPlayerStrategy.dll
+/Users/gaeldupire/Projects/NBanditArmed/AutoPlayNBanditArmed/bin/Debug/NBanditAutoPlayerStrategy.dll.mdb
+/Users/gaeldupire/Projects/NBanditArmed/AutoPlayNBanditArmed/bin/Debug/WorkFlow.dll
+/Users/gaeldupire/Projects/NBanditArmed/AutoPlayNBanditArmed/bin/Debug/WorkFlow.dll.mdb

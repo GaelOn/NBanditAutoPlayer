@@ -1,0 +1,5 @@
+/Users/gaeldupire/Projects/NBanditArmed/Utils/obj/Debug/.NETFramework,Version=v4.5.AssemblyAttribute.fs
+/Users/gaeldupire/Projects/NBanditArmed/Utils/bin/Debug/Utils.dll.mdb
+/Users/gaeldupire/Projects/NBanditArmed/Utils/bin/Debug/Utils.dll
+/Users/gaeldupire/Projects/NBanditArmed/Utils/obj/Debug/Utils.dll
+/Users/gaeldupire/Projects/NBanditArmed/Utils/obj/Debug/Utils.dll.mdb

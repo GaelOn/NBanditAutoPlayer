@@ -1,0 +1,5 @@
+/Users/gaeldupire/Projects/NBanditArmed/Math.Statistical/obj/Debug/.NETFramework,Version=v4.5.AssemblyAttribute.fs
+/Users/gaeldupire/Projects/NBanditArmed/Math.Statistical/bin/Debug/Math.Statistical.dll.mdb
+/Users/gaeldupire/Projects/NBanditArmed/Math.Statistical/bin/Debug/Math.Statistical.dll
+/Users/gaeldupire/Projects/NBanditArmed/Math.Statistical/obj/Debug/Math.Statistical.dll
+/Users/gaeldupire/Projects/NBanditArmed/Math.Statistical/obj/Debug/Math.Statistical.dll.mdb

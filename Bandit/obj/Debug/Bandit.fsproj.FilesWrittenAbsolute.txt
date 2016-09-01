@@ -1,0 +1,9 @@
+/Users/gaeldupire/Projects/NBanditArmed/Bandit/obj/Debug/.NETFramework,Version=v4.5.AssemblyAttribute.fs
+/Users/gaeldupire/Projects/NBanditArmed/Bandit/bin/Debug/Bandit.dll.mdb
+/Users/gaeldupire/Projects/NBanditArmed/Bandit/bin/Debug/Bandit.dll
+/Users/gaeldupire/Projects/NBanditArmed/Bandit/obj/Debug/Bandit.dll
+/Users/gaeldupire/Projects/NBanditArmed/Bandit/obj/Debug/Bandit.dll.mdb
+/Users/gaeldupire/Projects/NBanditArmed/Bandit/bin/Debug/BanditContract.dll
+/Users/gaeldupire/Projects/NBanditArmed/Bandit/bin/Debug/BanditContract.dll.mdb
+/Users/gaeldupire/Projects/NBanditArmed/Bandit/bin/Debug/Math.Statistical.dll
+/Users/gaeldupire/Projects/NBanditArmed/Bandit/bin/Debug/Math.Statistical.dll.mdb

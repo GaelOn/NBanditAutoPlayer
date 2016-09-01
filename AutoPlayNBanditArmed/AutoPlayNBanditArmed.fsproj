@@ -1,0 +1,75 @@
+﻿<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProjectGuid>{32B35171-3D08-4DFB-BABB-484438654A81}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>AutoPlayNBanditArmed</RootNamespace>
+    <AssemblyName>AutoPlayNBanditArmed</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <ExternalConsole>true</ExternalConsole>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <DefineConstants></DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <ExternalConsole>true</ExternalConsole>
+    <GenerateTailCalls>true</GenerateTailCalls>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup>
+    <FSharpTargetsPath>$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\FSharp\Microsoft.FSharp.Targets</FSharpTargetsPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(VisualStudioVersion)' == '10.0' OR '$(VisualStudioVersion)' == '11.0'">
+    <FSharpTargetsPath>$(MSBuildExtensionsPath32)\..\Microsoft SDKs\F#\3.0\Framework\v4.0\Microsoft.FSharp.Targets</FSharpTargetsPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="mscorlib" />
+    <Reference Include="FSharp.Core" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Numerics" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AssemblyInfo.fs" />
+    <Compile Include="BanditPlayerBinding.fs" />
+    <Compile Include="Program.fs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AutoPlayerStrategyContract\AutoPlayerStrategyContract.fsproj">
+      <Project>{0EF06E48-B567-4E5C-B5A5-C689AB761E47}</Project>
+      <Name>AutoPlayerStrategyContract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bandit\Bandit.fsproj">
+      <Project>{A14182C3-F363-4E3E-92B4-0C905180F066}</Project>
+      <Name>Bandit</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BanditContract\BanditContract.fsproj">
+      <Project>{A74E6ECE-A1F9-4744-AF11-73F392174A1B}</Project>
+      <Name>BanditContract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Math.Statistical\Math.Statistical.fsproj">
+      <Project>{27F06E68-2F44-4E5B-9247-2576A2F43C72}</Project>
+      <Name>Math.Statistical</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NBanditAutoPlayerStrategy\NBanditAutoPlayerStrategy.fsproj">
+      <Project>{1489357A-E2CE-4DD2-8B8F-658D8951BA11}</Project>
+      <Name>NBanditAutoPlayerStrategy</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WorkFlow\WorkFlow.fsproj">
+      <Project>{4BD35C47-0FD1-42C7-8DBE-1CBFA8241CCC}</Project>
+      <Name>WorkFlow</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(FSharpTargetsPath)" />
+</Project>

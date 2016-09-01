@@ -1,0 +1,5 @@
+/Users/gaeldupire/Projects/NBanditArmed/DDD.Contract/obj/Debug/.NETFramework,Version=v4.5.AssemblyAttribute.fs
+/Users/gaeldupire/Projects/NBanditArmed/DDD.Contract/bin/Debug/DDD.Contract.dll.mdb
+/Users/gaeldupire/Projects/NBanditArmed/DDD.Contract/bin/Debug/DDD.Contract.dll
+/Users/gaeldupire/Projects/NBanditArmed/DDD.Contract/obj/Debug/DDD.Contract.dll
+/Users/gaeldupire/Projects/NBanditArmed/DDD.Contract/obj/Debug/DDD.Contract.dll.mdb

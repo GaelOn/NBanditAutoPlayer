@@ -1,0 +1,11 @@
+/Users/gaeldupire/Projects/NBanditArmed/NBanditAutoPlayerStrategy/obj/Debug/.NETFramework,Version=v4.5.AssemblyAttribute.fs
+/Users/gaeldupire/Projects/NBanditArmed/NBanditAutoPlayerStrategy/bin/Debug/NBanditAutoPlayerStrategy.dll.mdb
+/Users/gaeldupire/Projects/NBanditArmed/NBanditAutoPlayerStrategy/bin/Debug/NBanditAutoPlayerStrategy.dll
+/Users/gaeldupire/Projects/NBanditArmed/NBanditAutoPlayerStrategy/obj/Debug/NBanditAutoPlayerStrategy.dll
+/Users/gaeldupire/Projects/NBanditArmed/NBanditAutoPlayerStrategy/obj/Debug/NBanditAutoPlayerStrategy.dll.mdb
+/Users/gaeldupire/Projects/NBanditArmed/NBanditAutoPlayerStrategy/bin/Debug/BanditContract.dll
+/Users/gaeldupire/Projects/NBanditArmed/NBanditAutoPlayerStrategy/bin/Debug/BanditContract.dll.mdb
+/Users/gaeldupire/Projects/NBanditArmed/NBanditAutoPlayerStrategy/bin/Debug/Math.Statistical.dll
+/Users/gaeldupire/Projects/NBanditArmed/NBanditAutoPlayerStrategy/bin/Debug/Math.Statistical.dll.mdb
+/Users/gaeldupire/Projects/NBanditArmed/NBanditAutoPlayerStrategy/bin/Debug/AutoPlayerStrategyContract.dll
+/Users/gaeldupire/Projects/NBanditArmed/NBanditAutoPlayerStrategy/bin/Debug/AutoPlayerStrategyContract.dll.mdb

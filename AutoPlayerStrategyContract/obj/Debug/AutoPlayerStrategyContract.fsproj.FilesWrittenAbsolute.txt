@@ -1,0 +1,7 @@
+/Users/gaeldupire/Projects/NBanditArmed/AutoPlayerStrategyContract/obj/Debug/.NETFramework,Version=v4.5.AssemblyAttribute.fs
+/Users/gaeldupire/Projects/NBanditArmed/AutoPlayerStrategyContract/bin/Debug/AutoPlayerStrategyContract.dll.mdb
+/Users/gaeldupire/Projects/NBanditArmed/AutoPlayerStrategyContract/bin/Debug/AutoPlayerStrategyContract.dll
+/Users/gaeldupire/Projects/NBanditArmed/AutoPlayerStrategyContract/obj/Debug/AutoPlayerStrategyContract.dll
+/Users/gaeldupire/Projects/NBanditArmed/AutoPlayerStrategyContract/obj/Debug/AutoPlayerStrategyContract.dll.mdb
+/Users/gaeldupire/Projects/NBanditArmed/AutoPlayerStrategyContract/bin/Debug/Math.Statistical.dll
+/Users/gaeldupire/Projects/NBanditArmed/AutoPlayerStrategyContract/bin/Debug/Math.Statistical.dll.mdb

@@ -1,0 +1,5 @@
+/Users/gaeldupire/Projects/NBanditArmed/WorkFlow/obj/Debug/.NETFramework,Version=v4.5.AssemblyAttribute.fs
+/Users/gaeldupire/Projects/NBanditArmed/WorkFlow/bin/Debug/WorkFlow.dll.mdb
+/Users/gaeldupire/Projects/NBanditArmed/WorkFlow/bin/Debug/WorkFlow.dll
+/Users/gaeldupire/Projects/NBanditArmed/WorkFlow/obj/Debug/WorkFlow.dll
+/Users/gaeldupire/Projects/NBanditArmed/WorkFlow/obj/Debug/WorkFlow.dll.mdb

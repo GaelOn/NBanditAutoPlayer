@@ -1,0 +1,47 @@
+﻿<Properties StartupItem="BanditTest/BanditTest.fsproj">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Math.Statistical/PiTool.fs">
+    <Files>
+      <File FileName="NBanditAutoPlayerStrategy/PlayerFactory.fs" Line="73" Column="31" />
+      <File FileName="Math.Statistical/ResultType.fs" Line="42" Column="25" />
+      <File FileName="AutoPlayerStrategyContract/PlayerResultParser.fs" Line="113" Column="5" />
+      <File FileName="AutoPlayerStrategyContract/PlayerType.fs" Line="44" Column="10" />
+      <File FileName="AutoPlayerStrategyContract/PlayType.fs" Line="30" Column="28" />
+      <File FileName="AutoPlayerStrategyContract/IPlayerContract.fs" Line="27" Column="29" />
+      <File FileName="NBanditAutoPlayerStrategy/GreedyPlayer.fs" Line="84" Column="20" />
+      <File FileName="NBanditAutoPlayerStrategy/UCBPlayer.fs" Line="52" Column="1" />
+      <File FileName="AutoPlayerStrategyContract/GreedyContextType.fs" Line="29" Column="1" />
+      <File FileName="AutoPlayerStrategyContract/UCBContextType.fs" Line="33" Column="6" />
+      <File FileName="NBanditAutoPlayerStrategy/GreedyStrategy.fs" Line="66" Column="33" />
+      <File FileName="NBanditAutoPlayerStrategy/UCBStrategy.fs" Line="64" Column="1" />
+      <File FileName="Math.Statistical/NumericalExtension.fs" Line="35" Column="22" />
+      <File FileName="BanditTest/BanditTest.fs" Line="35" Column="16" />
+      <File FileName="BanditTest/TestHelper.fs" Line="62" Column="43" />
+      <File FileName="BanditTest/UCBTest.fs" Line="90" Column="9" />
+      <File FileName="BanditTest/GreedyTest.fs" Line="87" Column="46" />
+      <File FileName="Bandit/BanditFactory.fs" Line="35" Column="12" />
+      <File FileName="Bandit/BanditHelper.fs" Line="40" Column="34" />
+      <File FileName="Bandit/Bandit.fs" Line="69" Column="31" />
+      <File FileName="BanditContract/BanditContracts.fs" Line="26" Column="23" />
+      <File FileName="Math.Statistical/RandomGenerator.fs" Line="1" Column="3" />
+      <File FileName="BanditTest/Math_Statistical_OnFlowComputeTest.fs" Line="1" Column="1" />
+      <File FileName="BanditTest/Math_Statistical_RandomGeneratorTest.fs" Line="33" Column="1" />
+      <File FileName="Math.Statistical/PiTool.fs" Line="26" Column="14" />
+      <File FileName="Utils/Cast.fs" Line="26" Column="18" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.ItemProperties.BanditTest PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore>
+      <Breakpoint file="/Users/gaeldupire/Projects/NBanditArmed/BanditTest/UCBTest.fs" line="83" column="1" />
+      <Breakpoint file="/Users/gaeldupire/Projects/NBanditArmed/NBanditAutoPlayerStrategy/UCBPlayer.fs" line="41" column="1" />
+      <Breakpoint enabled="false" file="/Users/gaeldupire/Projects/NBanditArmed/NBanditAutoPlayerStrategy/UCBPlayer.fs" line="52" column="1" />
+      <Breakpoint enabled="false" file="/Users/gaeldupire/Projects/NBanditArmed/NBanditAutoPlayerStrategy/UCBPlayer.fs" line="49" column="1" />
+      <Breakpoint enabled="false" file="/Users/gaeldupire/Projects/NBanditArmed/NBanditAutoPlayerStrategy/UCBStrategy.fs" line="77" column="1" />
+      <Breakpoint enabled="false" file="/Users/gaeldupire/Projects/NBanditArmed/NBanditAutoPlayerStrategy/UCBStrategy.fs" line="64" column="1" />
+      <Breakpoint file="/Users/gaeldupire/Projects/NBanditArmed/BanditTest/UCBTest.fs" line="88" column="1" />
+    </BreakpointStore>
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <AuthorInfo Name="Dupire Gael" Email="" Copyright="gaeldupire" Company="" Trademark="" />
+</Properties>

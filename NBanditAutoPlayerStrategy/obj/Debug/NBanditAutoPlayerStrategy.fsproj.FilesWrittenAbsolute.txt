@@ -9,3 +9,4 @@
 /Users/gaeldupire/Projects/NBanditArmed/NBanditAutoPlayerStrategy/bin/Debug/Math.Statistical.dll.mdb
 /Users/gaeldupire/Projects/NBanditArmed/NBanditAutoPlayerStrategy/bin/Debug/AutoPlayerStrategyContract.dll
 /Users/gaeldupire/Projects/NBanditArmed/NBanditAutoPlayerStrategy/bin/Debug/AutoPlayerStrategyContract.dll.mdb
+/Users/gaeldupire/Projects/NBanditArmed/NBanditAutoPlayerStrategy/bin/Debug/MathNet.Numerics.dll

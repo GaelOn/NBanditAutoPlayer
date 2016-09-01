@@ -15,3 +15,4 @@
 /Users/gaeldupire/Projects/NBanditArmed/AutoPlayNBanditArmed/bin/Debug/NBanditAutoPlayerStrategy.dll.mdb
 /Users/gaeldupire/Projects/NBanditArmed/AutoPlayNBanditArmed/bin/Debug/WorkFlow.dll
 /Users/gaeldupire/Projects/NBanditArmed/AutoPlayNBanditArmed/bin/Debug/WorkFlow.dll.mdb
+/Users/gaeldupire/Projects/NBanditArmed/AutoPlayNBanditArmed/bin/Debug/MathNet.Numerics.dll

@@ -1,5 +1,5 @@
 ﻿<Properties StartupItem="BanditTest/BanditTest.fsproj">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Math.Statistical/PiTool.fs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="BanditTest/Math_Statistical_RandomGeneratorTest.fs">
     <Files>
       <File FileName="NBanditAutoPlayerStrategy/PlayerFactory.fs" Line="73" Column="31" />
       <File FileName="Math.Statistical/ResultType.fs" Line="42" Column="25" />
@@ -14,7 +14,7 @@
       <File FileName="NBanditAutoPlayerStrategy/GreedyStrategy.fs" Line="66" Column="33" />
       <File FileName="NBanditAutoPlayerStrategy/UCBStrategy.fs" Line="64" Column="1" />
       <File FileName="Math.Statistical/NumericalExtension.fs" Line="35" Column="22" />
-      <File FileName="BanditTest/BanditTest.fs" Line="35" Column="16" />
+      <File FileName="BanditTest/BanditTest.fs" Line="39" Column="14" />
       <File FileName="BanditTest/TestHelper.fs" Line="62" Column="43" />
       <File FileName="BanditTest/UCBTest.fs" Line="90" Column="9" />
       <File FileName="BanditTest/GreedyTest.fs" Line="87" Column="46" />
@@ -22,11 +22,10 @@
       <File FileName="Bandit/BanditHelper.fs" Line="40" Column="34" />
       <File FileName="Bandit/Bandit.fs" Line="69" Column="31" />
       <File FileName="BanditContract/BanditContracts.fs" Line="26" Column="23" />
-      <File FileName="Math.Statistical/RandomGenerator.fs" Line="1" Column="3" />
+      <File FileName="Math.Statistical/RandomGenerator.fs" Line="59" Column="30" />
       <File FileName="BanditTest/Math_Statistical_OnFlowComputeTest.fs" Line="1" Column="1" />
-      <File FileName="BanditTest/Math_Statistical_RandomGeneratorTest.fs" Line="33" Column="1" />
-      <File FileName="Math.Statistical/PiTool.fs" Line="26" Column="14" />
-      <File FileName="Utils/Cast.fs" Line="26" Column="18" />
+      <File FileName="BanditTest/Math_Statistical_RandomGeneratorTest.fs" Line="26" Column="25" />
+      <File FileName="Math.Statistical/PiTool.fs" Line="55" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.ItemProperties.BanditTest PreferredExecutionTarget="MonoDevelop.Default" />

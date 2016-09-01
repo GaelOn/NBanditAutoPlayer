@@ -25,7 +25,7 @@
 // THE SOFTWARE.
 module PiTool
 open Utils.Cast
-open MathNet.Numerics.Random
+open Math.Statistical.RandomGenerator
 
 //[<Struct>]
 //type Vect2<'a when 'a : (static member op_Explicit :  'a -> double) >(x:'a,y:'a) = 
@@ -49,21 +49,7 @@ open MathNet.Numerics.Random
 
 //    interface System.IEquatable<Vect2<'a>> with
 //        member this.Equals(vect:Vect2<'a>) = internalEquals vect
-open MathNet.Numerics.Random
+
 type vect = { X : double ; Y : double }
 //let _generator = System.Random(System.DateTime.UtcNow.Millisecond * 37 + System.Environment.TickCount * 13)
-let _generator = MathNet.Numerics.Random.xorshift()
-let transform x = 2.0*x-1.0
-let generate = fun () ->  _generator.NextDouble() |> transform
-let generateVect = fun () -> { X = generate() ; Y = generate() }
-let drawCount = 10000
-let rec fillVectList vectorList iter maxIter =
-    if iter = maxIter then
-        generateVect()::vectorList
-    else
-        fillVectList (generateVect()::vectorList) (iter+1) maxIter
-let pi = fillVectList [] 1 drawCount 
-         |> List.map (fun (s:vect) -> (s.X**2.0)+(s.Y**2.0)) 
-         |> List.fold (fun acc s -> if s>1.0 then acc else acc+1.0) 0.0
-         |> (*) (4.0/((double)drawCount))
-         |> printfn "Computed value for Pi : %f"
+

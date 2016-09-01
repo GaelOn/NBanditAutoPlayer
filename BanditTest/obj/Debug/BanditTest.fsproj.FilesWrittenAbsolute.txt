@@ -18,3 +18,4 @@
 /Users/gaeldupire/Projects/NBanditArmed/BanditTest/bin/Debug/WorkFlow.dll.mdb
 /Users/gaeldupire/Projects/NBanditArmed/BanditTest/bin/Debug/Utils.dll
 /Users/gaeldupire/Projects/NBanditArmed/BanditTest/bin/Debug/Utils.dll.mdb
+/Users/gaeldupire/Projects/NBanditArmed/BanditTest/bin/Debug/MathNet.Numerics.dll

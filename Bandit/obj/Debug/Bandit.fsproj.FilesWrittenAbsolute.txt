@@ -7,3 +7,4 @@
 /Users/gaeldupire/Projects/NBanditArmed/Bandit/bin/Debug/BanditContract.dll.mdb
 /Users/gaeldupire/Projects/NBanditArmed/Bandit/bin/Debug/Math.Statistical.dll
 /Users/gaeldupire/Projects/NBanditArmed/Bandit/bin/Debug/Math.Statistical.dll.mdb
+/Users/gaeldupire/Projects/NBanditArmed/Bandit/bin/Debug/MathNet.Numerics.dll

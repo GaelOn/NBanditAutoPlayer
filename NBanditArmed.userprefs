@@ -1,5 +1,5 @@
 ﻿<Properties StartupItem="BanditTest/BanditTest.fsproj">
-  <MonoDevelop.Ide.Workbench ActiveDocument="BanditTest/Math_Statistical_RandomGeneratorTest.fs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="NBanditArmed Status">
     <Files>
       <File FileName="NBanditAutoPlayerStrategy/PlayerFactory.fs" Line="73" Column="31" />
       <File FileName="Math.Statistical/ResultType.fs" Line="42" Column="25" />
@@ -24,8 +24,9 @@
       <File FileName="BanditContract/BanditContracts.fs" Line="26" Column="23" />
       <File FileName="Math.Statistical/RandomGenerator.fs" Line="59" Column="30" />
       <File FileName="BanditTest/Math_Statistical_OnFlowComputeTest.fs" Line="1" Column="1" />
-      <File FileName="BanditTest/Math_Statistical_RandomGeneratorTest.fs" Line="26" Column="25" />
+      <File FileName="BanditTest/Math_Statistical_RandomGeneratorTest.fs" Line="34" Column="31" />
       <File FileName="Math.Statistical/PiTool.fs" Line="55" Column="1" />
+      <File FileName="NBanditArmed Status" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.ItemProperties.BanditTest PreferredExecutionTarget="MonoDevelop.Default" />

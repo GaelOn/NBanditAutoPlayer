@@ -30,6 +30,11 @@ open PiTool
 open Math.Statistical.RandomGenerator
 //open Math.Statistical.RandomGenerator.Contract
 
+// to test the random generator on [0, 1), we use monte carlo method to compute pi.
+// despite the fact it quite slow to converge it can give us an easy way to know :
+// - the generator do their work throw the method getDouble (here with a transformation)
+// - the generator is uniformily distributed (more precisely it give us the confirmation that
+//   we are not using another distribution but something which is apparently like intended).
 [<TestFixture>]
 type RandomGeneratorTest() =
 

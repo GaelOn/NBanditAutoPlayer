@@ -79,11 +79,12 @@ let rec findMaxReward'<'a> (actualMax:double) (results:ResultReport<'a> list) =
 
 let findMaxReward<'a> = findMaxReward'<'a> System.Double.MinValue 
 
-let parse(player:IPlayer) = 
+let parse(player:IPlayer) (banditExpectations: double list) = 
     let globalResult = player.PlayerResult.Report()
     let localReport = player.PlayerResults |> List.map (fun s -> s.Report())
     let maxMean = findMaxReward localReport
-    let sumOfValue = List.map (fun (s:RecorderReport<double>) -> ((double)s.Occurence)*s.Value) globalResult.RecorderReport |> List.sum
+    let sumOfValue   = List.map (fun (s:RecorderReport<double>) -> ((double)s.Occurence)*s.Value) globalResult.RecorderReport |> List.sum
+    let theoricalSum = List.map2 (fun (s:ResultReport<double>) (expectation: double) -> ((double)s.NbTry) * expectation) localReport banditExpectations |> List.sum
     let sb = StringBuilder()
     sb.Append("Resultat globaux du test :")|> ignore
     sb.AppendLine()|> ignore
@@ -102,7 +103,7 @@ let parse(player:IPlayer) =
     let computedCumulativeRegretValue = String.Format("Computed cumulative Regret : {0}", ((double)globalResult.NbTry)*maxMean - sumOfValue)
     sb.Append(computedCumulativeRegretValue)|> ignore
     sb.AppendLine()|> ignore
-    let concreteCumulativeRegretValue = String.Format("Concrete cumulative Regret : {0}", ((double)globalResult.NbTry)*player.MaxMean - sumOfValue)
+    let concreteCumulativeRegretValue = String.Format("Concrete cumulative Regret : {0}", ((double)globalResult.NbTry)*player.MaxMean - theoricalSum)
     sb.Append(concreteCumulativeRegretValue)|> ignore
     sb.AppendLine()|> ignore
     parseRecordList<double> globalResult.RecorderReport sb |> ignore

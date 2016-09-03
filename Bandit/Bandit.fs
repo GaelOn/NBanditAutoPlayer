@@ -62,6 +62,11 @@ type NBandit(groupSize:int) =
     let _maxSlot = groupSize
     let _banditArray = [| for i in 1 .. groupSize -> Empty |]
     let mutable _curSlot = -1
+
+    member private this.findExpectation (maybeBandit:BanditOption) =
+        match  maybeBandit with 
+            | BanditItem bandit -> bandit.Expectation
+            | _ -> System.Double.MinValue
     
     interface INBandit with
         member this.Id with get() = id
@@ -69,6 +74,8 @@ type NBandit(groupSize:int) =
         member this.NbOfBandit with get()     = _curSlot + 1
 
         member this.MaxNbOfBandit with get()  = _maxSlot
+
+        member this.Expectations with get()    = Array.map (fun (s:BanditOption) -> this.findExpectation s) _banditArray |> List.ofArray
         
         member this.AddBandit(bandit:IBandit) =
             if _curSlot < _maxSlot then

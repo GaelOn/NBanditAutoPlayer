@@ -85,5 +85,5 @@ type UCBTest() =
         let action = workflow player nBandit errors
         Iterator action 100000
         player.MaxMean <- findMaxExpectation nBandit
-        parse player |> printf "%s" 
+        parse player nBandit.Expectations |> printf "%s" 
         printfn "End of workflow"

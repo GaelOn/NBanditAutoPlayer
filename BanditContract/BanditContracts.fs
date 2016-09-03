@@ -42,6 +42,9 @@ type BanditOption =
 
 type INBandit =
     inherit IEntity
+
+    abstract member Expectations  : double list with get
+
     abstract member NbOfBandit    : int with get
  
     abstract member MaxNbOfBandit : int with get

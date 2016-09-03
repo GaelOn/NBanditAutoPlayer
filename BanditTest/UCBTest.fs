@@ -38,6 +38,7 @@ open ErrorType
 open UCBStrategy
 open PlayerResultParser
 open BanditHelper
+open Math.Statistical.RandomGenerator
 
 [<TestFixture>]
 type UCBTest() = 
@@ -72,7 +73,10 @@ type UCBTest() =
         ((selectBandit player nBandit) |> NBanditBinding errors) |> BanditResultBinding player.AddResultFromCurrent
 
     [<Test>]
-    member x.TestUCB1Strategy() =
+    member x.TestUCB1StrategyCase1() =
+        printfn "----------------------- READ ME -----------------------"
+        printfn "Just for testing purpose but theoricaly this case is out of theorem bound !!!!!"
+        printfn "-------------------------------------------------------"
         let nBandit = CreateINBandit(2)
         let test1 = GetRewardDefinition1()
         let firstBandit = CreateIBandit(test1)
@@ -81,6 +85,38 @@ type UCBTest() =
         let secondBandit = CreateIBandit(test2)
         nBandit.AddBandit(secondBandit)|> ignore 
         let player = getUCB1Param 2 |> playerFactory 
+        let errors = []
+        let action = workflow player nBandit errors
+        Iterator action 100000
+        player.MaxMean <- findMaxExpectation nBandit
+        parse player nBandit.Expectations |> printf "%s"
+        printfn "----------------------- READ ME -----------------------"
+        printfn "Just for testing purpose but theoricaly this case is out of theorem bound !!!!!"
+        printfn "-------------------------------------------------------"
+        printfn "End of workflow"
+
+    [<Test>]
+    member x.TestUCB1StrategyCaseBernoulliWith2Bandits() =
+        let nBandit = CreateINBandit(2)
+        let test1 = GetRewardDefinition1()
+        let firstBandit = CreateIBandit(test1)
+        nBandit.AddBandit(firstBandit) |> ignore 
+        let test2 = GetRewardDefinition3()
+        let secondBandit = CreateIBandit(test2)
+        nBandit.AddBandit(secondBandit)|> ignore 
+        let player = getUCB1Param 2 |> playerFactory 
+        let errors = []
+        let action = workflow player nBandit errors
+        Iterator action 100000
+        player.MaxMean <- findMaxExpectation nBandit
+        parse player nBandit.Expectations |> printf "%s" 
+        printfn "End of workflow"
+
+    [<Test>]
+    member x.TestUCB1StrategyCaseBernoulliWith10Bandits() =
+        let nbOfBandit = 10
+        let nBandit = RNGFactory XorShiftGenerator |> getNbanditWithBernouilliTYpeReward nbOfBandit 
+        let player = getUCB1Param nbOfBandit |> playerFactory 
         let errors = []
         let action = workflow player nBandit errors
         Iterator action 100000

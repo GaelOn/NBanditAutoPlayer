@@ -33,3 +33,11 @@ let CreateIBandit(rewardDefinitions:RewardDefinitions) =
 
 let CreateINBandit(maxSlot:int) =
     NBandit(maxSlot) :> INBandit
+
+let addBandit (bandits:INBandit) (bandit:IBandit) =
+    bandits.AddBandit(bandit)
+
+type RewardGenerator = unit -> RewardDefinitions
+
+let fillNBandit (rewardGenerator:RewardGenerator) (bandits:INBandit) = 
+    rewardGenerator() |> CreateIBandit |> addBandit bandits

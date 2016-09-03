@@ -28,10 +28,16 @@ open BanditContracts
 open BanditType
 open BanditModule
 open Bandit
+open BanditFactory
+open Math.Statistical.RandomGenerator
 
 let GetStage1 () = getStage 2.0 0.0
     
 let GetStage2 () = getStage 4.0 1.0
+
+let GetStage3 () = getStage 4.0 0.0
+    
+let GetStage4 () = getStage 1.0 1.0
 
 // expectation 2/3
 // variance 1/3 =((2.0/3.0)**2.0)*(1.0/3.0)+((1.0/3.0)**2.0)*(2.0/3.0) = 2.0/9.0
@@ -53,7 +59,29 @@ let openBandit(banditOption:BanditOption) =
     match banditOption with
         | BanditItem bandit -> bandit
         | _ -> Bandit.EmptyBandit() :> IBandit
+        
+// expectation 2/3
+// variance 1/3 =((2.0/3.0)**2.0)*(1.0/3.0)+((1.0/3.0)**2.0)*(2.0/3.0) = 2.0/9.0
+// theorical reward frequency
+// 0    -> 0.3333333333
+// 1    -> 0.6666666667
+let GetRewardDefinition3 () = [GetStage3(); GetStage4()]
 
+let GetRandomlyBernoulliReward (rng:IRandomGenerator) = 
+    let proba0 = rng.GetDouble()
+    [getStage proba0 0.0; getStage (1.0-proba0) 1.0]
+
+let nBanditAsAccumulator (nbandit:INBandit) (bandit:IBandit) =
+    nbandit.AddBandit(bandit) |> ignore
+    nbandit
+
+let getNbanditWithBernouilliTYpeReward (nbOfBandit:int) (rng:IRandomGenerator) =
+    let nBandit = CreateINBandit(nbOfBandit)
+    let rewardGenerator () = GetRandomlyBernoulliReward rng
+    //[| for i in 1 .. nbOfBandit -> ResultSummary(i-1) |] 
+    [|  1 .. nbOfBandit |] 
+    |> Array.map (fun s -> rewardGenerator() |> CreateIBandit)
+    |> Array.fold (fun (acc:INBandit) (bandit:IBandit) -> nBanditAsAccumulator acc bandit) nBandit
 
 (100.0/161.0)*((1150.0/161.0)**2.0) + (50.0/161.0)*((989.0/161.0)**2.0) + (10.0/161.0)*((460.0/161.0)**2.0) + (1.0/161.0)*((159850.0/161.0)**2.0) |> printfn "%f"
 

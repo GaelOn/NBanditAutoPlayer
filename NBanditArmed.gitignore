@@ -1,0 +1,41 @@
+#OS junk files
+[Tt]humbs.db
+*.DS_Store
+
+#Ignore files build by Visual Studio and Mono
+*.obj
+*.pdb
+*.mdb
+*.user
+*.aps
+*.pch
+*.vspscc
+*_i.c
+*_p.c
+*.ncb
+*.suo
+*.tlb
+*.tlh
+*.bak
+*.cache
+*.ilk
+*.log
+*_Spliced.*proj
+*.suo
+[Bb]in
+[Dd]ebug*/
+*.lib
+*.sbr
+obj/
+[Rr]elease*/
+
+#Tooling
+_ReSharper*/
+*.resharper
+[Tt]est[Rr]esult*
+
+#Project files
+[Bb]uild/
+
+# Office Temp Files
+~$*

@@ -38,6 +38,7 @@ open ErrorType
 open GreedyStrategy
 open PlayerResultParser
 open BanditHelper
+open Math.Statistical.RandomGenerator
 
 [<TestFixture>]
 type GreedyTest() = 
@@ -98,6 +99,30 @@ type GreedyTest() =
         let secondBandit = CreateIBandit(test2)
         nBandit.AddBandit(secondBandit)|> ignore 
         let player = GetPlayerWithDecreaseParam 0.1 2 10000 |> playerFactory 
+        let errors = []
+        let action = workflow player nBandit errors
+        Iterator action 100000
+        player.MaxMean <- findMaxExpectation nBandit
+        parse player nBandit.Expectations |> printf "%s" 
+        printfn "End of workflow"
+
+    [<Test>]
+    member x.TestBasicGreedyStrategyCaseBernoulliWith10Bandits() =
+        let nbOfBandit = 10
+        let nBandit = RNGFactory XorShiftGenerator |> getNbanditWithBernouilliTYpeReward nbOfBandit 
+        let player = GetPlayerParam 0.1 nbOfBandit |> playerFactory 
+        let errors = []
+        let action = workflow player nBandit errors
+        Iterator action 100000
+        player.MaxMean <- findMaxExpectation nBandit
+        parse player nBandit.Expectations |> printf "%s" 
+        printfn "End of workflow"
+
+    [<Test>]
+    member x.TestExponentialDecreaseGreedyStrategyCaseBernoulliWith10Bandits() =
+        let nbOfBandit = 10
+        let nBandit = RNGFactory XorShiftGenerator |> getNbanditWithBernouilliTYpeReward nbOfBandit 
+        let player = GetPlayerWithDecreaseParam 0.1 nbOfBandit 10000 |> playerFactory 
         let errors = []
         let action = workflow player nBandit errors
         Iterator action 100000

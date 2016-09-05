@@ -75,7 +75,7 @@ let nBanditAsAccumulator (nbandit:INBandit) (bandit:IBandit) =
     nbandit.AddBandit(bandit) |> ignore
     nbandit
 
-let getNbanditWithBernouilliTYpeReward (nbOfBandit:int) (rng:IRandomGenerator) =
+let getNbanditWithBernouilliTypeReward (nbOfBandit:int) (rng:IRandomGenerator) =
     let nBandit = CreateINBandit(nbOfBandit)
     let rewardGenerator () = GetRandomlyBernoulliReward rng
     //[| for i in 1 .. nbOfBandit -> ResultSummary(i-1) |] 

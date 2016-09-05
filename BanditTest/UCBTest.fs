@@ -115,7 +115,7 @@ type UCBTest() =
     [<Test>]
     member x.TestUCB1StrategyCaseBernoulliWith10Bandits() =
         let nbOfBandit = 10
-        let nBandit = RNGFactory XorShiftGenerator |> getNbanditWithBernouilliTYpeReward nbOfBandit 
+        let nBandit = RNGFactory XorShiftGenerator |> getNbanditWithBernouilliTypeReward nbOfBandit 
         let player = getUCB1Param nbOfBandit |> playerFactory 
         let errors = []
         let action = workflow player nBandit errors

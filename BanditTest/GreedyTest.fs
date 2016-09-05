@@ -107,9 +107,26 @@ type GreedyTest() =
         printfn "End of workflow"
 
     [<Test>]
+    member x.TestClassicalDecreaseGreedyStrategy() =
+        let nBandit = CreateINBandit(2)
+        let test1 = GetRewardDefinition1()
+        let firstBandit = CreateIBandit(test1)
+        nBandit.AddBandit(firstBandit) |> ignore 
+        let test2 = GetRewardDefinition2()
+        let secondBandit = CreateIBandit(test2)
+        nBandit.AddBandit(secondBandit)|> ignore 
+        let player = GetPlayerWithStandardDecreaseParam 2 0.7 1.0 1.0 |> playerFactory 
+        let errors = []
+        let action = workflow player nBandit errors
+        Iterator action 100000
+        player.MaxMean <- findMaxExpectation nBandit
+        parse player nBandit.Expectations |> printf "%s" 
+        printfn "End of workflow"
+
+    [<Test>]
     member x.TestBasicGreedyStrategyCaseBernoulliWith10Bandits() =
         let nbOfBandit = 10
-        let nBandit = RNGFactory XorShiftGenerator |> getNbanditWithBernouilliTYpeReward nbOfBandit 
+        let nBandit = RNGFactory XorShiftGenerator |> getNbanditWithBernouilliTypeReward nbOfBandit 
         let player = GetPlayerParam 0.1 nbOfBandit |> playerFactory 
         let errors = []
         let action = workflow player nBandit errors
@@ -121,11 +138,27 @@ type GreedyTest() =
     [<Test>]
     member x.TestExponentialDecreaseGreedyStrategyCaseBernoulliWith10Bandits() =
         let nbOfBandit = 10
-        let nBandit = RNGFactory XorShiftGenerator |> getNbanditWithBernouilliTYpeReward nbOfBandit 
+        let nBandit = RNGFactory XorShiftGenerator |> getNbanditWithBernouilliTypeReward nbOfBandit 
         let player = GetPlayerWithDecreaseParam 0.1 nbOfBandit 10000 |> playerFactory 
         let errors = []
         let action = workflow player nBandit errors
         Iterator action 100000
         player.MaxMean <- findMaxExpectation nBandit
         parse player nBandit.Expectations |> printf "%s" 
+        printfn "End of workflow"
+
+    [<Test>]
+    member x.TestStandartDecreaseGreedyStrategyCaseBernoulliWith10Bandits() =
+        let nbOfBandit = 10
+        let nBandit = RNGFactory XorShiftGenerator |> getNbanditWithBernouilliTypeReward nbOfBandit 
+        let expectations = nBandit.Expectations
+        let maxExpect = List.max expectations
+        let distances = List.map (fun (s:double) -> if maxExpect = s then 1.0 else (maxExpect - s)) expectations
+        let distance = List.max distances //List.fold (fun (acc:double) (s:double) -> if (maxExpect-s) > 0.0 && (maxExpect-s) < acc then maxExpect-s else acc) 1.0 expectations
+        let player = GetPlayerWithStandardDecreaseParam nbOfBandit (distance/2.0) 0.5 1.0 |> playerFactory 
+        let errors = []
+        let action = workflow player nBandit errors
+        Iterator action 100000
+        player.MaxMean <- findMaxExpectation nBandit
+        parse player expectations |> printf "%s" 
         printfn "End of workflow"

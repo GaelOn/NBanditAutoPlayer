@@ -24,20 +24,28 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 namespace PlayerType
+open PlayType
 open GreedyContextType
 
-type Trigger = int 
+type Trigger         = int 
+type DistanceFactor  = double
+type ControlConstant = double
+type Threshold       = double
+
+type ExponentialDecreaseArg = { Trigger:Trigger }
+type GreedyDecreaseArg = { DistanceFactor:DistanceFactor ; ControlConstant:ControlConstant ; NbOfBandit:NumberOfBandit }
 
 type GreedyType = 
-    | ExponentialDecrease
+    | ExponentialDecrease of ExponentialDecreaseArg
+    | GreedyDecrease of GreedyDecreaseArg
     | Basic
 
 type UCBType = 
     | UCB1
     | UCB2
 
-type GreedyStrategy = { Threshold : double ; Trigger:Trigger ; GreedyType:GreedyType }
-type UCBStrategy = { UCBType:UCBType }
+type GreedyStrategy = { Threshold : Threshold ; GreedyType:GreedyType }
+type UCBStrategy    = { UCBType:UCBType }
 
 type PlayerStrategy =
     | Greedy of GreedyStrategy

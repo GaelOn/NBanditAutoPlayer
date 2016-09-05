@@ -37,8 +37,11 @@ open UCBPlayer
 // -------------------    Greedy player factory    -------------------
 let greedyMultilpicatorComputorFactory (greedyStrategy:GreedyStrategy) =
     match greedyStrategy.GreedyType with
-        | ExponentialDecrease -> 
-            exponentialDecreaseFactorComputorGenerator greedyStrategy.Trigger
+        | ExponentialDecrease arg -> 
+            exponentialDecreaseFactorComputorGenerator greedyStrategy.Threshold arg.Trigger
+            |> bindToGreedySelector
+        | GreedyDecrease arg -> 
+            decreaseFactorComputorGenerator greedyStrategy.Threshold arg
             |> bindToGreedySelector
         | Basic -> bindToGreedySelector Simple
 

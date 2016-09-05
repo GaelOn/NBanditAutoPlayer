@@ -35,7 +35,7 @@ type GreedyTest() =
     [<Test>]
     member this.ShouldReturnOne() =
         let actionToBeTested valTest = 
-            let result = exponentialDecreaseMultiplicator 1000 valTest
+            let result = exponentialDecreaseMultiplicator 1000 1.0 valTest
             printfn "Iteration : %i" valTest
             printfn "Resultat  : %f" result
             Assert.AreEqual(1.0,result)
@@ -44,7 +44,7 @@ type GreedyTest() =
     [<Test>]
     member this.ShouldReturnDecreasingValue() =
         let actionToBeTested valTest = 
-            let result = exponentialDecreaseMultiplicator 0 valTest
+            let result = exponentialDecreaseMultiplicator 0 1.0 valTest
             printfn "Iteration : %i" valTest
             printfn "Resultat  : %f" result
             let expectedValue = exp ( min 0.0 (-((double)valTest)) )

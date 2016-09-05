@@ -33,13 +33,28 @@ open PlayerType
 // create a decrease factor for the probability in greedy strategy base on the number of 
 // element contain in the ruler (rank of the ruler). decreaseTriggerFactor is a level on
 // which the decrease factor is different from 1.
-let exponentialDecreaseMultiplicator (decreaseTriggerFactor:int) (rankValue:int) =
-    ((double)(decreaseTriggerFactor - rankValue)) |> min 0.0 |> exp
+let exponentialDecreaseMultiplicator (decreaseTriggerFactor:int) (threshold:double) (rankValue:int) =
+    ((double)(decreaseTriggerFactor - rankValue)) |> min 0.0 |> exp |> (*) threshold
+    
+// create a decrease factor for the probability in standard (academic) greedy strategy 
+// base on : 
+//  - the number of element contain in the ruler (rank of the ruler),
+//  - the distance factor which is a number inferior to the minimum of the distance between 
+//    the maximum average of reward of the bandit and the other reward average (on the other arm),
+//  - the define threshold to control tha max value of the probability to play a random arm,
+//  - the decreaseFactor which is constant choosen by the user to control the speed of decrease.
+// See "Finite time analysis of the multi-armed bandit problem." for example.
+let decreaseMultiplicator (nbOfBandit:int) (distanceFactor:double) (decreaseFactor:double) (threshold:double) (rankValue:int) =
+    (((double)nbOfBandit)*decreaseFactor)/((distanceFactor**2.0)*((double)rankValue)) |> min threshold
 
 // factory method of MultiplicatorFactorComputor containing exponentialDecreaseMultiplicator
 // withen trigger factor setted.
-let exponentialDecreaseFactorComputorGenerator (decreaseTriggerFactor:int) =
-    Multiplicator (exponentialDecreaseMultiplicator decreaseTriggerFactor)
+let exponentialDecreaseFactorComputorGenerator (threshold:double) (decreaseTriggerFactor:int) =
+    Multiplicator (exponentialDecreaseMultiplicator decreaseTriggerFactor threshold)
+
+// bind decreaseMultiplicator to known value of the signature by currification and return Multiplicator type
+let decreaseFactorComputorGenerator (threshold:double) (greedyDecreaseArg:GreedyDecreaseArg) =
+    Multiplicator (decreaseMultiplicator greedyDecreaseArg.NbOfBandit greedyDecreaseArg.DistanceFactor greedyDecreaseArg.ControlConstant threshold)
 
 // ----------------    Strategy of greedy player     ----------------
 
@@ -52,7 +67,7 @@ let basicGreedyStrategy (greedyContext:GreedySelectionContext) (playContext:Play
 
 // greedy strategy with decreasing strategy of exploration
 let decreaseGreedyStrategy (multiplicatorFactorComputor:MultiplicatorFactorComputor) (greedyContext:GreedySelectionContext) (playContext:PlayContext) =
-    if multiplicatorFactorComputor playContext.Rank |> (*) greedyContext.Threshold |> (<) playContext.Draw then
+    if multiplicatorFactorComputor playContext.Rank |> (<) playContext.Draw then
         playContext.Indexes.Exploration
     else
         playContext.Indexes.Best
@@ -67,9 +82,16 @@ let bindToGreedySelector (multiplicatorFactorType:MultiplicatorFactorType) =
 
 // helper to retrieve easyly param 
 let GetPlayerParam (threshold:double) (nbOfBandit:int) =
-    let playerStrategy = Greedy { Threshold = threshold ;  Trigger = 0; GreedyType = Basic }
+    let playerStrategy = Greedy { Threshold = threshold ; GreedyType = Basic }
     { NbOfBandit = nbOfBandit ; PlayerStrategy = playerStrategy }
 
 let GetPlayerWithDecreaseParam (threshold:double) (nbOfBandit:int) (decreaseTrigger:int) =
-    let playerStrategy = Greedy { Threshold = threshold ;  Trigger = decreaseTrigger; GreedyType = ExponentialDecrease } //greedyStrategy
+    let exponentialDecreaseArg = { Trigger = decreaseTrigger }
+    let playerStrategy = Greedy { Threshold = threshold ; GreedyType = ( ExponentialDecrease exponentialDecreaseArg ) } //greedyStrategy
     { NbOfBandit = nbOfBandit ; PlayerStrategy = playerStrategy }
+
+let GetPlayerWithStandardDecreaseParam (nbOfBandit:int) (distanceFactor:double) (decreaseFactor:double) (threshold:double) =
+    let decreaseArg = { DistanceFactor = distanceFactor ; ControlConstant = decreaseFactor ; NbOfBandit = nbOfBandit }
+    let playerStrategy = Greedy { Threshold = threshold ; GreedyType = ( GreedyDecrease decreaseArg ) } //greedyStrategy
+    { NbOfBandit = nbOfBandit ; PlayerStrategy = playerStrategy }
+

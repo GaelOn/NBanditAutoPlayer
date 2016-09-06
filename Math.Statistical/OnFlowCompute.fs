@@ -26,11 +26,32 @@
 [<AutoOpen>]
 module Math.Statistical.OnFlowCompute
 open System
+open Math.Statistical.StatisticType
+
+// allow us to use fold on Population type
+type MeanAccumulator         = { size : int ; mean : Mean }
+type MeanVarianceAccumulator = { size : int ; meanVariance : MeanVariance }
 
 // compute the new mean base on the knowledge of the current value of the mean and the number of element
 // used to compute it.
-let fastMeanCompute (currentPopulationSize':int) (currentMean:double) (newElement:double) =
+let inline fastMeanUpdate (currentPopulationSize':int) (currentMean:double) (newElement:double) =
     let newPopulationSize = ((double)currentPopulationSize'+1.0)
     let currentPopulationSize = (double)currentPopulationSize'
     (newElement/newPopulationSize) + (currentPopulationSize/newPopulationSize)*currentMean
 
+let inline fastVarianceUpdate (currentPopulationSize:int) (currentMean:Mean) (newMean:Mean) (currentVariance:Variance) (newElement:double) =
+    let variance = ((1.0/((double)currentPopulationSize))*(newElement - currentMean)*(newElement - newMean)) + currentVariance
+    variance
+
+let inline fastCoupleMeanVarianceUpdate (currentPopulationSize:int) (currentMean:Mean) (currentVariance:Variance) (newElement:double) =
+    let newMean  = fastMeanUpdate currentPopulationSize currentMean newElement
+    let variance = fastVarianceUpdate currentPopulationSize currentMean newMean currentVariance newElement
+    { Mean = newMean ; Variance = variance }
+
+let inline fastMeanCompute (population:Population<'T>) = 
+    let accumulatedValue = Array.fold(fun (acc:MeanAccumulator) (value:'T) -> { size = acc.size+1 ; mean = fastMeanUpdate acc.size acc.mean ((double)value) } ) { size = 0 ; mean = 0.0 } population
+    accumulatedValue.mean
+
+let inline fastMeanVarianceCompute (population:Population<'T>) = 
+    let accumulatedValue = Array.fold(fun (acc:MeanVarianceAccumulator) (value:'T) -> { size = acc.size+1 ; meanVariance = fastCoupleMeanVarianceUpdate acc.size acc.meanVariance.Mean acc.meanVariance.Variance ((double)value) } ) { size = 0 ; meanVariance = { Mean = 0.0 ; Variance = 0.0 } } population
+    accumulatedValue.meanVariance

@@ -199,7 +199,7 @@ type ResultSummary (id:int) =
             if _nbTry = 0 then
                 (_mean <- result) |> ignore
             else 
-                (_mean <- (fastMeanCompute _nbTry _mean result)) |> ignore
+                (_mean <- (fastMeanUpdate _nbTry _mean result)) |> ignore
             _nbTry <- _nbTry+1
     
     interface IReportable<ResultReport<double>> with

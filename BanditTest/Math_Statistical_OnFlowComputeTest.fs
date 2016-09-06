@@ -31,12 +31,12 @@ open Math.Statistical.OnFlowCompute
 let rec computeMeanOfOne (mean:double) (nbTry:int) (iter:int) (test:double->unit) =
     match iter with
         | 0 -> 
-            let newMean = fastMeanCompute nbTry mean 1.0
+            let newMean = fastMeanUpdate nbTry mean 1.0
             test newMean
             let newNbTry = nbTry + 1
             ()
         | _ -> 
-            let newMean = fastMeanCompute nbTry mean 1.0
+            let newMean = fastMeanUpdate nbTry mean 1.0
             test newMean
             let newNbTry = nbTry + 1
             computeMeanOfOne newMean newNbTry (iter-1) test
@@ -45,11 +45,11 @@ let rec computeMeanOfIntegerFromOneToN (mean:double) (nbTry:int) (iter:int) (tes
     match iter with
         | 0 -> 
             let newNbTry = nbTry + 1
-            let newMean = fastMeanCompute nbTry mean ((double)newNbTry)
+            let newMean = fastMeanUpdate nbTry mean ((double)newNbTry)
             (test newMean newNbTry) |> ignore
         | _ -> 
             let newNbTry = nbTry + 1
-            let newMean = fastMeanCompute nbTry mean ((double)newNbTry)
+            let newMean = fastMeanUpdate nbTry mean ((double)newNbTry)
             (test newMean newNbTry)
             computeMeanOfIntegerFromOneToN newMean newNbTry (iter-1) test
 

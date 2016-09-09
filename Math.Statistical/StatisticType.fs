@@ -23,7 +23,7 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
-namespace Math.Statistical.StatisticType
+module Math.Statistical.StatisticType
 open System
 
 type Element<'T>    = 'T
@@ -31,4 +31,12 @@ type Population<'T> = Element<'T>[]
 
 type Mean           = float
 type Variance       = float
-type MeanVariance   = { Mean:Mean ; Variance:Variance }
+type VarianceType   =
+    | VarianceWithBias of Variance
+    | UnbiasedVariance of Variance
+type MeanVariance   = { Mean:Mean ; Variance:VarianceType }
+
+let var (varType:VarianceType) =
+    match varType with 
+        | VarianceWithBias concreteValue -> concreteValue
+        | UnbiasedVariance concreteValue -> concreteValue

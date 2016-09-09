@@ -32,26 +32,81 @@ open Math.Statistical.StatisticType
 type MeanAccumulator         = { size : int ; mean : Mean }
 type MeanVarianceAccumulator = { size : int ; meanVariance : MeanVariance }
 
-// compute the new mean base on the knowledge of the current value of the mean and the number of element
-// used to compute it.
+// update value of a mean for obtaining the new value of it following the addition of a new element
+// in the population you are observing
 let inline fastMeanUpdate (currentPopulationSize':int) (currentMean:double) (newElement:double) =
-    let newPopulationSize = ((double)currentPopulationSize'+1.0)
-    let currentPopulationSize = (double)currentPopulationSize'
+    let currentPopulationSize = (double)currentPopulationSize' 
+    let newPopulationSize = currentPopulationSize + 1.0
     (newElement/newPopulationSize) + (currentPopulationSize/newPopulationSize)*currentMean
 
-let inline fastVarianceUpdate (currentPopulationSize:int) (currentMean:Mean) (newMean:Mean) (currentVariance:Variance) (newElement:double) =
-    let variance = ((1.0/((double)currentPopulationSize))*(newElement - currentMean)*(newElement - newMean)) + currentVariance
-    variance
+// update a biased variance to the new value of it following the new value of the population under observation.
+// use Weldford algorithm
+let inline fastVarianceWithBiasUpdate (currentPopulationSize':int) (currentMean:Mean) (newMean:Mean) (currentVariance:Variance) (newElement:double) =
+    let currentPopulationSize = (double)currentPopulationSize' 
+    let newPopulationSize     = currentPopulationSize + 1.0
+    ((1.0/newPopulationSize)*(newElement - currentMean)*(newElement - newMean)) + ((currentPopulationSize/newPopulationSize)*currentVariance)
+    
+// update a UNbiased variance to the new value of it following the new value of the population under observation
+// use Weldford algorithm
+let inline fastUnBiasedVarianceUpdate (currentPopulationSize':int) (currentMean:Mean) (newMean:Mean) (currentVariance:Variance) (newElement:double) =
+    if currentPopulationSize' = 0 then
+        0.0
+    else 
+        let newPopulationSize = (double)currentPopulationSize' 
+        let currentPopulationSize = newPopulationSize - 1.0
+        ((1.0/newPopulationSize)*(newElement - currentMean)*(newElement - newMean)) + ((currentPopulationSize/newPopulationSize)*currentVariance)
 
-let inline fastCoupleMeanVarianceUpdate (currentPopulationSize:int) (currentMean:Mean) (currentVariance:Variance) (newElement:double) =
+// update a couple of mean variance (unbiased) 
+// use Weldford algorithm
+let inline fastCoupleMeanVarianceUpdate (currentPopulationSize:int) (currentMean:Mean) (currentVariance:VarianceType) (newElement:double) =
     let newMean  = fastMeanUpdate currentPopulationSize currentMean newElement
-    let variance = fastVarianceUpdate currentPopulationSize currentMean newMean currentVariance newElement
-    { Mean = newMean ; Variance = variance }
+    match currentVariance with 
+        | VarianceWithBias curVar -> let variance = fastVarianceWithBiasUpdate currentPopulationSize currentMean newMean curVar newElement
+                                     { Mean = newMean ; Variance = (VarianceType.VarianceWithBias variance) }
+        | UnbiasedVariance curVar -> let variance = fastUnBiasedVarianceUpdate currentPopulationSize currentMean newMean curVar newElement
+                                     { Mean = newMean ; Variance = (VarianceType.UnbiasedVariance variance) }
 
-let inline fastMeanCompute (population:Population<'T>) = 
-    let accumulatedValue = Array.fold(fun (acc:MeanAccumulator) (value:'T) -> { size = acc.size+1 ; mean = fastMeanUpdate acc.size acc.mean ((double)value) } ) { size = 0 ; mean = 0.0 } population
+// compute the mean of a given population
+let inline fastMeanCompute population = 
+    let accumulatedValue = Array.fold(fun (acc:MeanAccumulator) value -> { size = acc.size+1 ; mean = fastMeanUpdate acc.size acc.mean ((double)value) } ) { size = 0 ; mean = 0.0 } population
     accumulatedValue.mean
 
-let inline fastMeanVarianceCompute (population:Population<'T>) = 
-    let accumulatedValue = Array.fold(fun (acc:MeanVarianceAccumulator) (value:'T) -> { size = acc.size+1 ; meanVariance = fastCoupleMeanVarianceUpdate acc.size acc.meanVariance.Mean acc.meanVariance.Variance ((double)value) } ) { size = 0 ; meanVariance = { Mean = 0.0 ; Variance = 0.0 } } population
+// compute the couple mean variance of a given population allowing choose beetween biased and unbiased variance
+// using the MeanVarianceAccumulator
+let inline fastMeanVarianceCompute (acc:MeanVarianceAccumulator) population = 
+    let accumulatedValue = Array.fold(fun (acc:MeanVarianceAccumulator) value -> { size = acc.size+1 ; meanVariance = fastCoupleMeanVarianceUpdate acc.size acc.meanVariance.Mean acc.meanVariance.Variance ((double)value) } ) acc population
     accumulatedValue.meanVariance
+
+// compute the couple mean variance of a given population using an unbiased variance
+let inline fastMeanUnbiasedVarianceCompute (population:Population<'T>) = 
+    fastMeanVarianceCompute { size = 0 ; meanVariance = { Mean = 0.0 ; Variance = (VarianceType.UnbiasedVariance 0.0) } } population
+
+// compute the couple mean variance of a given population using a biased variance
+let inline fastMeanBiasedVarianceCompute (population:Population<'T>) = 
+    fastMeanVarianceCompute { size = 0 ; meanVariance = { Mean = 0.0 ; Variance = (VarianceType.VarianceWithBias 0.0) } } population
+
+let updateOnePassMeanVariance (index:double) (oldMean:double) (element:double) (oldVariance:double) =
+    let mean     = oldMean + ((element - oldMean)/index)
+    let variance = oldVariance + (element-mean)*(element - oldMean)
+    (mean,variance)
+
+let inline onePassUpdateVariance acc element =
+    let newIndex = acc.size + 1
+    let updateOnePassMeanVariance' = updateOnePassMeanVariance ((double)newIndex) acc.meanVariance.Mean ((double)element)
+    match acc.meanVariance.Variance with 
+        | VarianceWithBias curVar -> let meanVariance = updateOnePassMeanVariance' curVar
+                                     { size = newIndex ; meanVariance = { Mean = fst meanVariance ; Variance = (VarianceType.VarianceWithBias (snd meanVariance)) } }
+        | UnbiasedVariance curVar -> let meanVariance = updateOnePassMeanVariance' curVar
+                                     { size = newIndex ; meanVariance = { Mean = fst meanVariance ; Variance = (VarianceType.UnbiasedVariance (snd meanVariance)) } }
+
+let inline fastVarianceCompute (acc:MeanVarianceAccumulator) population = 
+    let acced = Array.fold ( fun (acc:MeanVarianceAccumulator) element -> onePassUpdateVariance acc element ) acc population
+    match acced.meanVariance.Variance with 
+        | VarianceWithBias curVar -> (1.0/((double)(acced.size)))*curVar
+        | UnbiasedVariance curVar -> (1.0/((double)(acced.size-1)))*curVar
+
+let fastVarianceWithBiasCompute population = 
+    fastVarianceCompute { size = 0 ; meanVariance = { Mean = 0.0 ; Variance = (VarianceType.VarianceWithBias 0.0) } } population
+
+let fastUnbiasedVarianceCompute population = 
+    fastVarianceCompute { size = 0 ; meanVariance = { Mean = 0.0 ; Variance = (VarianceType.UnbiasedVariance 0.0) } } population

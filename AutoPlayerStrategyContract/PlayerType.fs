@@ -42,7 +42,7 @@ type GreedyType =
 
 type UCBType = 
     | UCB1
-    | UCB2
+    | UCB_Tuned
 
 type GreedyStrategy = { Threshold : Threshold ; GreedyType:GreedyType }
 type UCBStrategy    = { UCBType:UCBType }

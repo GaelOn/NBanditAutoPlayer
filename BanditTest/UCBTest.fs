@@ -123,3 +123,32 @@ type UCBTest() =
         player.MaxMean <- findMaxExpectation nBandit
         parse player nBandit.Expectations |> printf "%s" 
         printfn "End of workflow"
+
+    [<Test>]
+    member x.TestUCB_TunedStrategyCaseBernoulliWith2Bandits() =
+        let nBandit = CreateINBandit(2)
+        let test1 = GetRewardDefinition1()
+        let firstBandit = CreateIBandit(test1)
+        nBandit.AddBandit(firstBandit) |> ignore 
+        let test2 = GetRewardDefinition3()
+        let secondBandit = CreateIBandit(test2)
+        nBandit.AddBandit(secondBandit)|> ignore 
+        let player = getUCB_TunedParam 2 |> playerFactory 
+        let errors = []
+        let action = workflow player nBandit errors
+        Iterator action 100000
+        player.MaxMean <- findMaxExpectation nBandit
+        parse player nBandit.Expectations |> printf "%s" 
+        printfn "End of workflow"
+
+    [<Test>]
+    member x.TestUCB_TunedStrategyCaseBernoulliWith10Bandits() =
+        let nbOfBandit = 10
+        let nBandit = RNGFactory XorShiftGenerator |> getNbanditWithBernouilliTypeReward nbOfBandit 
+        let player = getUCB_TunedParam nbOfBandit |> playerFactory 
+        let errors = []
+        let action = workflow player nBandit errors
+        Iterator action 100000
+        player.MaxMean <- findMaxExpectation nBandit
+        parse player nBandit.Expectations |> printf "%s" 
+        printfn "End of workflow"

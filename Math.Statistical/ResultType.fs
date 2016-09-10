@@ -73,6 +73,8 @@ type IResultSummary =
 
     abstract member Mean      : double with get
 
+    abstract member Variance  : double with get
+
     abstract member AddResult : double -> unit
 
 // convertion function for reporting
@@ -185,6 +187,7 @@ type ResultSummary (id:int) =
     let _id = id
     let mutable _nbTry = 0
     let mutable _mean  = 0.0
+    let mutable _variance  = 0.0
     let _recorder = Recorder<double>() :> IRecorder<double> 
 
     member this.Id with get() = _id
@@ -194,12 +197,17 @@ type ResultSummary (id:int) =
 
         member this.Mean with get() = _mean
 
+        member this.Variance with get() = _variance
+
         member this.AddResult (result:double) =
             _recorder.AddRecord(result)
             if _nbTry = 0 then
                 (_mean <- result) |> ignore
             else 
-                (_mean <- (fastMeanUpdate _nbTry _mean result)) |> ignore
+                let newMean = fastMeanUpdate _nbTry _mean result
+                let newVariance = fastVarianceWithBiasUpdate _nbTry _mean newMean _variance result
+                _mean <- newMean
+                _variance <- newVariance
             _nbTry <- _nbTry+1
     
     interface IReportable<ResultReport<double>> with

@@ -29,6 +29,7 @@ open Math.Statistical.Result
 
 type UCBSelectionType =
     | UCB1Selection
+    | UCB_TunedSelection
 
 type UCBSelectionContext(nbOfBandit:NumberOfBandit, UCBSelectionType:UCBSelectionType) =
     let _nbOfBandit          = nbOfBandit

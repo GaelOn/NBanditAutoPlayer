@@ -31,34 +31,61 @@ open PlayerType
 open Math.Statistical.Result
 open Math.Numerical.Extension
 
-type UCB1Arg(totalTry:int, armedNbTry:int, mean:double) =
-    let _totalTry      = totalTry
-    let _armedNbTry    = generateDivisor armedNbTry
-    let _mean          = mean
+type UCB1Arg = 
+    val mutable _totalTry   : int
+    val mutable _armedNbTry : Divisor
+    val mutable _mean       : double
 
-    member this.TotalTry with get()      = _totalTry
+    new () = UCB1Arg(0,0,0.0)
+    new (totalTry, armedNbTry, mean) = { _totalTry = totalTry ; _armedNbTry = generateDivisor armedNbTry ; _mean = mean }
 
-    member this.ArmedNbTry with get()    = _armedNbTry
+    member this.TotalTry with get()      = this._totalTry
 
-    member this.Mean with get()          = _mean
+    member this.ArmedNbTry with get()    = this._armedNbTry
+
+    member this.Mean with get()          = this._mean
+    
+type UCB_TunedArg =
+    inherit UCB1Arg
+    val mutable _variance : double
+
+    new () = UCB_TunedArg(0,0,0.0,0.0)
+    new(totalTry, armedNbTry, mean, variance) = { inherit UCB1Arg( totalTry, armedNbTry, mean ); _variance = variance }
+
+    member this.Variance with get()           = this._variance
     
 type UCBArg = 
     | UCB1ArgType of UCB1Arg
+    | UCB_TunedArgType of UCB_TunedArg
 
 let generateUCBArg (playerContext:UCBSelectionContext) (playContext:PlayContext) (result:IResultSummary) =
     match playerContext.SelectionType with 
         | UCB1Selection -> UCB1ArgType (UCB1Arg(playerContext.PlayerResult.NbTry, result.NbTry, result.Mean))
+        | UCB_TunedSelection -> UCB_TunedArgType (UCB_TunedArg(playerContext.PlayerResult.NbTry, result.NbTry, result.Mean, result.Variance))
+
+let inline UCBCorrector constant totalTry divisor = 
+    sqrt( ((double)constant) * (Math.Log((double)totalTry))/divisor )
 
 let inline computeOfUCB1 totalTry armedNbTry mean = 
     match armedNbTry with 
         | Zero -> System.Double.MaxValue
-        | Value divisor -> mean + sqrt( (2.0*(Math.Log((double)totalTry)))/divisor )
+        | Value divisor -> UCBCorrector 2 totalTry divisor |> (+) mean 
+
+let inline computeOfUCB_Tuned totalTry armedNbTry mean variance = 
+    match armedNbTry with 
+        | Zero -> mean
+        | Value divisor -> 
+            let correctedVariance = UCBCorrector 2 totalTry divisor |> (+) variance
+            UCBCorrector 1 totalTry divisor |> (*) (Math.Min ((1.0/4.0),correctedVariance)) |> (+) mean 
 
 let computeUCB1 (arg:UCB1Arg) = computeOfUCB1 arg.TotalTry arg.ArmedNbTry arg.Mean
+
+let computeUCB_Tuned (arg:UCB_TunedArg) = computeOfUCB_Tuned arg.TotalTry arg.ArmedNbTry arg.Mean arg.Variance
 
 let bindArgToConcreteSelector (_UCBArg:UCBArg) =
     match _UCBArg with
         | UCB1ArgType arg -> computeUCB1 arg
+        | UCB_TunedArgType arg -> computeUCB_Tuned arg
 
 let findIndexesOfMax<'a when 'a : comparison> (array:'a[]) =
     let maxValue = Array.max array
@@ -68,7 +95,7 @@ let findIndexesOfMax<'a when 'a : comparison> (array:'a[]) =
             listofMaxIndex <- i::listofMaxIndex
         else
             listofMaxIndex <- listofMaxIndex
-    List.item (System.DateTime.UtcNow.Millisecond % listofMaxIndex.Length) listofMaxIndex
+    listofMaxIndex.Item (System.DateTime.UtcNow.Millisecond % listofMaxIndex.Length)
         
 // ----------------    Strategy of UCB player    ----------------
 
@@ -84,4 +111,8 @@ let selectorOfUCBStrategy (playerContext:UCBSelectionContext) (playContext:PlayC
 
 let getUCB1Param (nbOfBandit:int) =
     let playerStrategy = UCB { UCBType = UCB1 } 
+    { NbOfBandit = nbOfBandit ; PlayerStrategy = playerStrategy }
+
+let getUCB_TunedParam (nbOfBandit:int) =
+    let playerStrategy = UCB { UCBType = UCB_Tuned } 
     { NbOfBandit = nbOfBandit ; PlayerStrategy = playerStrategy }
